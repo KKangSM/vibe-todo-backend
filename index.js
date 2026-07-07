@@ -13,7 +13,8 @@ import memoRouter from "./routers/memo.js";
 // ESM에는 __dirname이 없어 직접 계산
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // 프론트엔드(화면) 폴더 — 백엔드가 함께 서빙해서 앱을 하나로 합침
-const FRONTEND_DIR = path.join(__dirname, "..", "todo-firebase");
+// 배포(Heroku)에도 포함되도록 백엔드 repo 안의 public/ 에 정적 파일을 둔다
+const FRONTEND_DIR = path.join(__dirname, "public");
 
 // 이 PC의 기본 DNS(127.0.0.1)가 응답하지 않아 Atlas의 SRV 조회가 실패함 → 공개 DNS로 강제
 dns.setServers(["8.8.8.8", "1.1.1.1"]);

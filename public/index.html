@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Midnight · 밤에 정리하는 일정</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ── 배경 음악 : 두 번째 화면부터 YouTube 임베드로 재생 ── -->
+  <div class="ytbgm" id="ytbgm" aria-hidden="true"></div>
+  <button class="bgm-toggle" id="bgmToggle" type="button" aria-label="음악 켜기/끄기" aria-pressed="true">♪</button>
+
+  <!-- ── 본 배경 : 고흐 '론강 위의 별이 빛나는 밤' ── -->
+  <div class="sky" aria-hidden="true"></div>
+
+  <!-- ── 일렁이는 달 : 누르면 할 일 창이 나타남 ── -->
+  <button class="moon" id="moon" type="button" aria-label="할 일 열기">
+    <span class="moon__img" aria-hidden="true"></span>
+    <span class="moon__hint">달을 눌러보세요</span>
+  </button>
+
+  <!-- 달 일렁임(물결) 효과용 SVG 필터 -->
+  <svg class="ripple-def" width="0" height="0" aria-hidden="true">
+    <filter id="moonRipple" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="4" result="noise">
+        <animate attributeName="baseFrequency" dur="16s" repeatCount="indefinite"
+          values="0.012 0.02; 0.017 0.013; 0.011 0.021; 0.012 0.02" />
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="12"
+        xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <!-- ── 할 일 메모 창 : 달을 누르면 나타남 ── -->
+  <main class="board board--hidden" id="board" aria-label="할 일 목록">
+    <div class="memo" role="dialog" aria-modal="true" aria-label="일기장">
+      <button class="memo__close" id="memoClose" type="button" aria-label="닫기">×</button>
+
+      <header class="board__head">
+        <h1 class="board__title">안녕, 달</h1>
+        <p class="board__date" id="boardDate"></p>
+      </header>
+
+      <div class="sections" id="sections"></div>
+    </div>
+  </main>
+
+  <!-- ── 첫 화면(인트로) : 론강의 밤 + 글귀 ── -->
+  <div class="splash" id="splash" role="button" tabindex="0" aria-label="시작하기">
+    <div class="splash__bg" aria-hidden="true"></div>
+    <div class="splash__inner">
+      <p class="splash__q">당신의 오늘은 어떤 색이었나요?</p>
+      <p class="splash__sub">
+        조용한 밤, 온전한 나만의 시간 속에서<br />
+        나만의 한 줄 적어보아요,
+      </p>
+      <p class="splash__hint">화면을 눌러 시작하기</p>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
