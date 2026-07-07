@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import dns from "dns";
@@ -24,6 +25,8 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/todo";
 
 // 미들웨어
+// 다른 도메인(배포된 React 앱 등)에서의 브라우저 요청을 허용 (CORS)
+app.use(cors());
 app.use(express.json());
 
 // 프론트엔드 정적 파일 서빙 → "/" 접속 시 index.html(화면)이 뜸
